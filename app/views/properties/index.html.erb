@@ -1,0 +1,53 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"btn btn-warning" %>
+  <Center><h1>Properties</h1></Center>
+
+
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Property_size</th>
+        <th scope="col">Price</th>
+        <th scope="col">Deposit required</th>
+        <% if can? :manage, Property %>
+          <th scope="col" colspan="3">Action</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @properties.each do |property| %>
+        <tr>
+          <td><%= property.title %></td>
+          <td><%= property.property_size %></td>
+          <td><%= property.price %></td>
+          <td><%= property.deposit_required %></td>
+          <td><%= link_to 'Show', property, class:"btn btn-outline-warning" %></td>
+          <% if can? :manage, property %>
+            <td><%= link_to 'Edit', edit_property_path(property)  , class:"btn btn-outline-primary" %></td>
+            <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' }, 
+             :remote => true, :class => 'delete_property', class:"btn btn-outline-danger" %></td>
+          <% end %>
+          <td id="property-<%= property.id%>">
+            <% if current_user.likes.where(property_id: property.id).exists? %>
+              <%= render "properties/unlike", property: property%>
+            <% else %>
+              <%= render "properties/like", property: property%>
+            <% end %> 
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="btn btn-info">
+  <%= paginate @properties %>
+  </div>
+  <br>
+  <br>
+  <% if can? :manage, Property %>
+    <%= link_to 'New Property', new_property_path, class:"btn btn-outline-success" %>
+  <% end %>
+</div>

@@ -1,0 +1,1 @@
+$('#property-<%= @like.property.id %>').html("<%= escape_javascript(render partial: 'properties/like', locals: { property: @like.property } ) %>");

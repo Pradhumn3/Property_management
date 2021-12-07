@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <h2>Property Info</h2>
+  <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Title:</strong><%= @property.title %></li>
+      <li class="list-group-item"><strong>Property size:</strong><%= @property.property_size %></li>
+      <li class="list-group-item"><strong>Price:</strong> <%= @property.price %></li>
+      <li class="list-group-item"><strong>Deposit required:</strong> <%= @property.deposit_required %></li>
+    </ul>
+  </div> <br>
+  <%= link_to 'Edit', edit_property_path(@property) %> |
+  <%= link_to 'Back', properties_path %>
+</div>
+
+
